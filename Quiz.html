@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kairo Keyz Erfolge Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+            width: 50%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin: 20px 0;
+            font-size: 1.5rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option-button {
+            padding: 15px;
+            background: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .option-button:hover {
+            background: #45a049;
+        }
+
+        .result {
+            font-size: 1.3rem;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .next-button {
+            padding: 10px 20px;
+            background: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .next-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Kairo Keyz Erfolge Quiz</h1>
+        <div id="quiz-content">
+            <div id="question-1" class="question">
+                <p>Was hat Kairo Keyz im Jahr 2019 gemacht?</p>
+                <div class="options">
+                    <button class="option-button" onclick="checkAnswer(1, 'a', this)">A. Er hat seinen ersten Song gemacht</button>
+                    <button class="option-button" onclick="checkAnswer(1, 'b', this)">B. Er hat sein erstes Album gemacht</button>
+                    <button class="option-button" onclick="checkAnswer(1, 'c', this)">C. Er hat auf einem großen Festival gespielt</button>
+                    <button class="option-button" onclick="checkAnswer(1, 'd', this)">D. Er hat sein Musiklabel gegründet</button>
+                </div>
+            </div>
+
+            <div id="question-2" class="question" style="display:none;">
+                <p>Wie hieß der erste Song von Kairo Keyz, der 2019 veröffentlicht wurde?</p>
+                <div class="options">
+                    <button class="option-button" onclick="checkAnswer(2, 'a', this)">A. "First Light"</button>
+                    <button class="option-button" onclick="checkAnswer(2, 'b', this)">B. "Dreams"</button>
+                    <button class="option-button" onclick="checkAnswer(2, 'c', this)">C. "Start Now"</button>
+                    <button class="option-button" onclick="checkAnswer(2, 'd', this)">D. "New Beginnings"</button>
+                </div>
+            </div>
+
+            <div id="question-3" class="question" style="display:none;">
+                <p>Was hat Kairo Keyz 2021 erreicht?</p>
+                <div class="options">
+                    <button class="option-button" onclick="checkAnswer(3, 'a', this)">A. Er hat sein erstes vollständiges Album veröffentlicht</button>
+                    <button class="option-button" onclick="checkAnswer(3, 'b', this)">B. Er hat auf Coachella gespielt</button>
+                    <button class="option-button" onclick="checkAnswer(3, 'c', this)">C. Er hat sein eigenes Musiklabel gegründet</button>
+                    <button class="option-button" onclick="checkAnswer(3, 'd', this)">D. Er hat eine Welttournee gemacht</button>
+                </div>
+            </div>
+
+            <div id="question-4" class="question" style="display:none;">
+                <p>Welche neue Musikrichtung hat Kairo Keyz 2023 in seinem neuesten Projekt eingeführt?</p>
+                <div class="options">
+                    <button class="option-button" onclick="checkAnswer(4, 'a', this)">A. Fusion von EDM und Hip-Hop</button>
+                    <button class="option-button" onclick="checkAnswer(4, 'b', this)">B. Alternative Rock</button>
+                    <button class="option-button" onclick="checkAnswer(4, 'c', this)">C. Reggae</button>
+                    <button class="option-button" onclick="checkAnswer(4, 'd', this)">D. Klassische Musik mit modernen Beats</button>
+                </div>
+            </div>
+
+            <div id="result" class="result"></div>
+            <button id="next-button" class="next-button" onclick="nextQuestion()">Nächste Frage</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let currentQuestion = 1;
+
+        function checkAnswer(questionNumber, answer, button) {
+            let correctAnswers = {
+                1: 'a', // 2019: Er hat seinen ersten Song gemacht
+                2: 'b', // Erster Song: "Dreams"
+                3: 'a', // 2021: Er hat sein erstes vollständiges Album veröffentlicht
+                4: 'a'  // 2023: Fusion von EDM und Hip-Hop
+            };
+
+            let resultText = '';
+
+            // Alle Buttons nach der Auswahl deaktivieren
+            let options = button.parentElement.querySelectorAll('button');
+            options.forEach((btn) => {
+                btn.disabled = true;
+            });
+
+            if (answer === correctAnswers[questionNumber]) {
+                score++;
+                resultText = 'Richtig! 🎉';
+            } else {
+                resultText = 'Oops, das war leider falsch! 😔';
+            }
+
+            document.getElementById('result').innerHTML = resultText + ' Dein Punktestand: ' + score;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('next-button').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            document.getElementById('question-' + currentQuestion).style.display = 'none';
+            currentQuestion++;
+
+            if (currentQuestion <= 4) {
+                document.getElementById('question-' + currentQuestion).style.display = 'block';
+            } else {
+                document.getElementById('quiz-content').innerHTML = '<h2>Quiz abgeschlossen!</h2><p>Dein Endpunktestand: ' + score + '/4</p>';
+            }
+
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('next-button').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
